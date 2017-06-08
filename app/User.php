@@ -15,4 +15,12 @@ class User extends Model
     public $fillable = ['firstname', 'lastname', 'email', 'personal_code'];
 
     public $timestamps = false;
+
+    /**
+     * get all address for user.
+     */
+    public function address()
+    {
+        return $this->hasMany('App\Address');
+    }
 }

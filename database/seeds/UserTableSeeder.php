@@ -18,9 +18,16 @@ class UserTableSeeder extends Seeder
                 'email' => 'ivanivanov@gmail.com',
                 'personal_code' => '1111',
                 'address' => [
-                    'country' => 'Ukraine',
-                    'city' => 'Kiyv',
-                    'address' => 'street Shevschenko house 102',
+                    [
+                        'country' => 'Ukraine',
+                        'city' => 'Kiyv',
+                        'address' => 'street Shevschenko house 102',
+                    ],
+                    [
+                        'country' => 'USA',
+                        'city' => 'San-Diego',
+                        'address' => 'street Presedent 154',
+                    ]
                 ],
             ],
             [
@@ -29,9 +36,16 @@ class UserTableSeeder extends Seeder
                 'email' => 'petrpetrov@gmail.com',
                 'personal_code' => '2222',
                 'address' => [
-                    'country' => 'Ukraine',
-                    'city' => 'Oddesa',
-                    'address' => 'street Shevschenko house 75',
+                    [
+                        'country' => 'Ukraine',
+                        'city' => 'Oddesa',
+                        'address' => 'street Shevschenko house 75',
+                    ],
+                    [
+                        'country' => 'Ukraine',
+                        'city' => 'Lviv',
+                        'address' => 'street Shevschenko house 55',
+                    ]
                 ],
             ],
             [
@@ -40,9 +54,16 @@ class UserTableSeeder extends Seeder
                 'email' => 'sergeysmirnov@gmail.com',
                 'personal_code' => '3333',
                 'address' => [
-                    'country' => 'Ukraine',
-                    'city' => 'Dnepr',
-                    'address' => 'street Shevschenko house 167',
+                    [
+                        'country' => 'Ukraine',
+                        'city' => 'Dnepr',
+                        'address' => 'street Shevschenko house 167',
+                    ],
+                    [
+                        'country' => 'Ukraine',
+                        'city' => 'Chop',
+                        'address' => 'street Shevschenko house 267',
+                    ],
                 ],
             ],
             [
@@ -51,9 +72,16 @@ class UserTableSeeder extends Seeder
                 'email' => 'vladmorozov@gmail.com',
                 'personal_code' => '4444',
                 'address' => [
-                    'country' => 'Ukraine',
-                    'city' => 'Lviv',
-                    'address' => 'street Shevschenko house 15',
+                    [
+                        'country' => 'Ukraine',
+                        'city' => 'Lviv',
+                        'address' => 'street Shevschenko house 15',
+                    ],
+                    [
+                        'country' => 'Ukraine',
+                        'city' => 'Irpin',
+                        'address' => 'street Shevschenko house 25',
+                    ]
                 ],
             ],
         ];
@@ -65,14 +93,15 @@ class UserTableSeeder extends Seeder
                 'email' => $records[$i]['email'],
                 'personal_code' => $records[$i]['personal_code'],
             ]);
-
             if (!empty($user_id)) {
-                DB::table('user_address')->insert([
-                    'user_id' => $user_id,
-                    'country' => $records[$i]['address']['country'],
-                    'city' => $records[$i]['address']['city'],
-                    'address' => $records[$i]['address']['address'],
-                ]);
+                for ($j = 0; $j < count($records[$i]['address']); $j++) {
+                    DB::table('address')->insert([
+                        'user_id' => $user_id,
+                        'country' => $records[$i]['address'][$j]['country'],
+                        'city' => $records[$i]['address'][$j]['city'],
+                        'address' => $records[$i]['address'][$j]['address'],
+                    ]);
+                }
             }
         }
     }

@@ -1,14 +1,17 @@
 <html>
 <head>
     <title>Application</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css')}}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div class="container">
     <div class="panel panel-primary">
-        <div class="panel-heading">Application CRUD
-            <button id="btn_add" name="btn_add" class="btn btn-default pull-right">Add User</button>
+        <div class="panel-heading">Application TEST
+            <button id="btn_add" name="btn_add" class="btn btn-success pull-right">Add User</button>
+        </div>
+        <div class="panel panel-success">
+            <div class="panel-heading" id="messages" style="display: none"></div>
         </div>
         <div class="panel-body">
             <div class="row">
@@ -40,6 +43,13 @@
                         @endforeach
                         </tbody>
                     </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="text-center">
+                        {{ $users->links() }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,6 +87,16 @@
                                 <input type="text" class="form-control" id="personal_code" name="personal_code" placeholder="Personal code" value="">
                             </div>
                         </div>
+                        <div class="panel panel-info">
+                            <div class="panel-heading">Address
+                                <input type="button" id="addAddress" value="Add Address" class="btn btn-success pull-right">
+                            </div>
+                            <div class="panel-body">
+                                <div id="addressContainer">
+                                    <input type="hidden" id="deletedAddress" name="deletedAddress" value="">
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -88,8 +108,10 @@
     </div>
 </div>
 <meta name="_token" content="{!! csrf_token() !!}" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<script src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
 <script src="{{asset('js/user.js')}}"></script>
+<script src="{{asset('js/address.js')}}"></script>
 </body>
 </html>
