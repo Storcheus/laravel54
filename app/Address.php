@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
 {
-    protected $table = 'address';
+    protected $table = 'view_address';
     /**
      * The attributes that are mass assignable.
      *

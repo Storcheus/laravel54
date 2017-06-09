@@ -119,15 +119,18 @@ $("#btn-save").click(function (e) {
         country = $(this).find('input[name^="country"]').val();
         city = $(this).find('input[name^="city"]').val();
         address = $(this).find('input[name^="address"]').val();
-
-        if (country.length != 0 || city.length != 0 || address.length != 0 ) {
-            addressList.push({
-                user_id: parseInt(user_id),
-                id: parseInt($(this).find('input[name^="address_id"]').val()),
-                country: country,
-                city: city,
-                address: address
-            });
+console.log("country");
+        if (country != undefined || city != undefined || address != undefined ) {
+            console.log("    country10");
+            if (country.length != 0 || city.length != 0 || address.length != 0) {
+                addressList.push({
+                    user_id: parseInt(user_id),
+                    id: parseInt($(this).find('input[name^="address_id"]').val()),
+                    country: country,
+                    city: city,
+                    address: address
+                });
+            }
         }
     });
 

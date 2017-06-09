@@ -6,6 +6,7 @@ use App\User;
 use App\Address;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class UserController
 {
@@ -140,7 +141,6 @@ class UserController
             $user->lastname = $request->input('lastname');
             $user->email = $request->input('email');
             $user->personal_code = $request->input('personal_code');
-            $user->save();
 
             $list = $request->input('address');
 
