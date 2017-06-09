@@ -119,7 +119,7 @@ $("#btn-save").click(function (e) {
         country = $(this).find('input[name^="country"]').val();
         city = $(this).find('input[name^="city"]').val();
         address = $(this).find('input[name^="address"]').val();
-console.log("country");
+
         if (country != undefined || city != undefined || address != undefined ) {
             console.log("    country10");
             if (country.length != 0 || city.length != 0 || address.length != 0) {

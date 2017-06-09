@@ -41,12 +41,11 @@ class UserController
             return response()->json(['errors' =>$validation->errors()->all()]);
         } else {
 
-            $user = User::find($user_id);
-            $user->firstname = $request->input('firstname');
-            $user->lastname = $request->input('lastname');
-            $user->email = $request->input('email');
-            $user->personal_code = $request->input('personal_code');
-            $user->save();
+            DB::statement("CALL sp_user_update(".$user_id.",'".
+                $request->input('firstname')."','".
+                $request->input('lastname')."','".
+                $request->input('email')."','".
+                $request->input('personal_code')."');");
 
             $addAddress = $request->input('address');
             $deletedAddress = $request->input('deletedAddress');
@@ -77,7 +76,7 @@ class UserController
             }
 
             return response()->json([
-                'user' => $user,
+                'user' => User::find($user_id),
                 'message' => 'User has been updated'
             ]);
         }
@@ -104,7 +103,8 @@ class UserController
      */
     public function destroy($user_id)
     {
-        $user = User::destroy($user_id);
+        $user = DB::statement("CALL sp_user_delete(".$user_id.");");
+
         if ($user) {
             Address::where('user_id', $user_id)->delete();
 
@@ -142,12 +142,23 @@ class UserController
             $user->email = $request->input('email');
             $user->personal_code = $request->input('personal_code');
 
+            DB::statement("CALL sp_user_insert('".
+                $request->input('firstname')."','".
+                $request->input('lastname')."','".
+                $request->input('email')."','".
+                $request->input('personal_code')."', @insertedId);");
+
+            $insert = DB::select("SELECT @insertedId as insertedId") ;
+            $user_id = $insert[0]->insertedId;
+
+
+
             $list = $request->input('address');
 
             if (count($list) > 0) {
                 foreach ($list as $k => $v) {
                     $address = new Address();
-                    $address->user_id = $user->id;
+                    $address->user_id = $user_id;
                     $address->country =  $v['country'];
                     $address->city =  $v['address'];
                     $address->address = $v['address'];
@@ -156,7 +167,7 @@ class UserController
             }
 
             return response()->json([
-                'user' => $user,
+                'user' => User::find($user_id),
                 'message' => 'User has been added'
             ]);
         }
