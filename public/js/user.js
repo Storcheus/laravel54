@@ -162,8 +162,6 @@ $("#btn-save").click(function (e) {
                         '</div>');
             } else {
                 $('#messages').text('').append(''+data.message+'').css('display', 'block');
-              //  $('#messages').append(''+data.message+'');
-               // $('#messages').css('display', 'block');
                 $('#messages').delay(3000).hide(0);
 
                 var user = '<tr id="user' + data.user.id + '">' +
