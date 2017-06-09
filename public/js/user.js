@@ -1,6 +1,5 @@
-var url = "http://laravel54.dev";
+var url = window.location.href ;
 //display modal form for user editing
-
 
 $(document).on('click','.open_modal',function(){
     var user_id = $(this).val();
